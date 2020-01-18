@@ -1,4 +1,10 @@
+# raspi / .vs additions
 bin/
+.vs/
+*.sln
+*.vcxproj*
+addons.make
+icon.rc
 
 #########################
 # openFrameworks patterns
