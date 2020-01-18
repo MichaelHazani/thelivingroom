@@ -39,6 +39,7 @@ void ofApp::draw() {
 	if (DebugView) {
 		ofDrawBitmapString("Current Hour: " + ofToString(currHour), 10, 10);
 		ofDrawBitmapString("Current Timer: " + ofToString(timer), 10, 30);
+		ofDrawBitmapString("Current FPS: " + ofToString(ofGetFrameRate()), 10, 50);
 		//ofDrawBitmapString("Counter: " + ofToString(sch.counter), 10, 20);
 	}
 }
