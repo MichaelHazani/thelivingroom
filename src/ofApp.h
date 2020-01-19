@@ -40,6 +40,7 @@ public:
 
 	// custom methods and variables
 	bool DebugView;
+	bool ManualTime;
 	float scrWidth;
 	float scrHeight;
 	int currHour;
@@ -47,10 +48,14 @@ public:
 	float timer;
 
 	ofVideoPlayer clipPlayer;
+	ofVideoPlayer clipPlayer2;
 
 	void refreshCurrentHour();
 	void playVideo();
 	void updateTimer();
+	void updateDimensions();
 
+
+	float alphaValue;
 	//Scheduler sch;
 };
