@@ -3,7 +3,6 @@ bin/
 .vs/
 *.sln
 *.vcxproj*
-addons.make
 icon.rc
 
 #########################
