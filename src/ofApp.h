@@ -55,7 +55,7 @@ public:
 	void updateTimer();
 	void updateDimensions();
 
-
+	int currFrame;
 	float alphaValue;
 	//Scheduler sch;
 };

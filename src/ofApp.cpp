@@ -1,14 +1,25 @@
 #include "ofApp.h"
+//#include "ofGstVideoPlayer.h"
 
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofEnableAlphaBlending();
+	//clipPlayer.setPlayer(ofPtr<ofGstVideoPlayer>(new ofGstVideoPlayer));
+	//clipPlayer2.setPlayer(ofPtr<ofGstVideoPlayer>(new ofGstVideoPlayer));
+	clipPlayer.setPixelFormat(OF_PIXELS_NATIVE);
+	clipPlayer2.setPixelFormat(OF_PIXELS_NATIVE);
+
 	startTime = ofGetElapsedTimeMillis();
 	DebugView = false;
 	ManualTime = false;
 	alphaValue = 0;
+	currFrame = 0;
 	updateDimensions();
 	refreshCurrentHour();
+
+	ofSetVerticalSync(false);
+	//clipPlayer.setUseTexture(false);
+	//clipPlayer2.setUseTexture(false);
 	playVideo();
 }
 
@@ -37,7 +48,7 @@ void ofApp::draw() {
 		ofDrawBitmapString("Current Timer: " + ofToString(timer), 10, 70);
 		ofDrawBitmapString("Current FPS: " + ofToString(ofGetFrameRate()), 10, 90);
 		ofDrawBitmapString("Manual Time: " + ofToString(ManualTime), 10, 110);
-		ofDrawBitmapString("\"m\" to toggle manual time, then arrow keys to change the current hour \nand a/d to change alpha value)", 10, 130);
+		ofDrawBitmapString("\"m\" to toggle manual time, then q/e to change the current hour \nand a/d to change alpha value)", 10, 130);
 		ofDrawBitmapString("(\"f\" to toggle fullscreen)", 10, 170);
 	}
 }
@@ -47,8 +58,6 @@ void ofApp::draw() {
 
 void ofApp::refreshCurrentHour() {
 	alphaValue = ofMap(ofGetMinutes(), 0, 60, 0, 255, false);
-	cout << alphaValue << endl;
-	cout << "hi" << endl;
 
 	if (currHour != ofGetHours())
 	{
@@ -58,12 +67,12 @@ void ofApp::refreshCurrentHour() {
 }
 
 void ofApp::playVideo() {
+	currFrame = clipPlayer.getCurrentFrame();
 	clipPlayer.load("loops/" + ofToString(currHour) + ".mp4");
 	clipPlayer2.load("loops/" + ofToString(currHour + 1) + ".mp4");
-
-	//clipPlayer.load("loops/19.mp4");
+	clipPlayer.setFrame(currFrame);
+	clipPlayer2.setFrame(currFrame);
 	clipPlayer.play();
-
 	clipPlayer2.play();
 }
 
@@ -98,12 +107,14 @@ void ofApp::keyPressed(int key) {
 	}
 	else {
 		if (ManualTime) {
-			if (key == OF_KEY_RIGHT) {
+			if (key == 'e') {
 				currHour++;
+				alphaValue = 0;
 				playVideo();
 			}
-			else if (key == OF_KEY_LEFT) {
+			else if (key == 'q') {
 				currHour--;
+				alphaValue = 255;
 				playVideo();
 			}
 			else if (key == 'd') {
