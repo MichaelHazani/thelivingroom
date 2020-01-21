@@ -1,7 +1,7 @@
 # TableauVivant
 Tableau Vivant: The Living Room
 
-![](https://github.com/MichaelHazani/TableauVivant/blob/master/tableau.png)
+![](https://raw.githubusercontent.com/MichaelHazani/TableauVivant/master/tableau.png)
 
 
 ## An OpenFrameworks Project 
